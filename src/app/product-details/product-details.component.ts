@@ -1,11 +1,11 @@
 import { Component, signal, input } from '@angular/core';
 import { IProduct } from '../product.model';
-import { CurrencyPipe, NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { CartService } from '../cart.service';
 
 @Component({
   selector: 'bot-product-details',
-  imports: [CurrencyPipe, NgClass],
+  imports: [CommonModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
