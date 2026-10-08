@@ -13,3 +13,21 @@ li {
 .top {
   border-top: none;
 }
+
+.filters {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 20px
+}
+
+.filters button {
+  width: 120px;
+}
+
+button.cta {
+  padding: 10px;
+  width: 100px;
+  display: block;
+  margin: 10px auto;
+}

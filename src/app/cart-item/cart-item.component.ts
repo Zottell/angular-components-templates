@@ -12,17 +12,13 @@ import { CartService } from '../cart.service';
 export class CartItemComponent {
   product = input.required<IProduct>();
 
-  constructor(private cartService: CartService) {
 
-  }
 
   getImageUrl(product: IProduct) {
     return '/images/robot-parts/' + product.imageName;
   }
 
-  removeFromCart() {
-    this.cartService.removeFromCart(this.product());
-  }
+
 
   getPriceClasses() {
     return { strikethrough: this.product().discount > 0 }
