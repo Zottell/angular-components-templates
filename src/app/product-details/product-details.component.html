@@ -5,39 +5,14 @@
   <div>
     <h2>{{p.name }}</h2>
     <p>{{p.description }}</p>
-    <p>
-      Part Type: 
-      @switch(product().category ) {
-        @case('heads') {
-          Head
-        }
-        @case('arms') {
-          Arm
-        }
-        @case('bases') {
-          Base
-        }
-        @case('torsos') {
-          Torso
-        }
-        @case('defalut') {
-          default
-        }
-      } 
-    </p>
-    <p>Available Inventory: {{ availableInventory() }}</p>
+    <p>      Part Type:  {{ p.category | categoryToPartType: false}}          </p>
+    
     @if (product().productNotes; as notes) {
       <p>Product Notes: {{ notes }}</p>
     }
-    @if (availableInventory() === 1) {
-      <span class="pill red">Only one left</span>
-      } @else if (availableInventory() < 1) {
-      <span class="pill yellow">Out of stock!</span>    
-    } @else if (availableInventory() < 5) {
-      <span class="pill yellow">Few left only!</span>
-} @else {
-      <span class="pill yellow">Get yours today</span>
-    }
+    <span class="pill" [class.red]="availableInventory() < 5">
+          {{availableInventory() | i18nPlural:inventoryMap }}
+    </span>
   </div>
 </div>
 <div class="price">
