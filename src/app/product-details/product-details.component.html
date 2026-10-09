@@ -10,16 +10,24 @@
     @if (product().productNotes; as notes) {
       <p>Product Notes: {{ notes }}</p>
     }
-    <p>Available Inventory: {{ availableInventory() }}</p>
+    <p>Available Inventory: {{ availableInventory() }}
     <span class="pill" [class.red]="availableInventory() < 5">
           {{availableInventory() | i18nPlural:inventoryMap }}
     </span>
+    </p>
+    <div>Favorite rating: {{favorite()}}</div>
+    <bot-slider [(sliderValue)]="favorite" (sliderValueChange)="handleSliderChange($event)" ></bot-slider>
   </div>
 </div>
 <div class="price">
   <p [ngClass]="getPriceClasses()">{{ product().price | currency }}</p>
   @if (product().discount > 0) {
   <p>{{ discountedPrice }}</p>
+  }
+  @if(mode()==='shop') {
+<button class="cta" (click)="add()">Buy</button>
+  } @else {
+ <button class="remove" (click)="remove()">Remove</button>
   }
   <ng-content></ng-content>
 

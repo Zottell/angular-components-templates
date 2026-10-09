@@ -1,17 +1,22 @@
-import { Component, signal, input } from '@angular/core';
+import { Component, signal, input, output } from '@angular/core';
 import { IProduct } from '../product.model';
 import { CommonModule } from '@angular/common';
 import { CategoryToPartTypePipe } from '../category-to-part-type-pipe';
-import { ɵEmptyOutletComponent } from '@angular/router';
+import { SliderComponent } from '../slider/slider.component';
 
 @Component({
   selector: 'bot-product-details',
-  imports: [CommonModule, CategoryToPartTypePipe, ɵEmptyOutletComponent],
+  imports: [CommonModule, CategoryToPartTypePipe, SliderComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
 export class ProductDetailsComponent {
-  product = input<any>();
+  product = input.required<IProduct>();
+mode = input<'shop'  | 'cart'>('shop');
+addToCart = output<IProduct>();
+removeFromCart = output<IProduct>();
+
+favorite = signal(3);
   availableInventory = signal(5);
   inventoryMap = {
     '=0': 'Out of Stock',
@@ -23,6 +28,17 @@ export class ProductDetailsComponent {
   }
 
 
+  add() {
+this.addToCart.emit(this.product());
+  }
+
+remove() {
+  this.removeFromCart.emit(this.product());
+}
+
+handleSliderChange(newValue:number) {
+console.log("New value: " + newValue);
+}
   getImageUrl(product: IProduct) {
     return '/images/robot-parts/' + product.imageName;
   }
